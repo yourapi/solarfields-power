@@ -1,15 +1,11 @@
 <div class="power-page">
   <div class="power-container">
-    <div class="total-power">12<span>.31</span> MW</div>
+    <div class="total-power">{{total_power.power | number:'3.2-2' | slice:0:3 | number}}<span>.{{total_power.power | number:'3.2-2' | slice:4:6 | number:'2.0-0' }}</span> MW</div>
     <div class="power-per-location">
       <ul>
-        <li>
-          <div class="location-name">Testlocatie 1</div>
-          <div class="location-power">6.83 MW</div>
-        </li>
-        <li>
-          <div class="location-name">Testlocatie 2</div>
-          <div class="location-power">7.24 MW</div>
+        <li *ngFor="let pl of per_location | async">
+          <div class="location-name">{{pl.name || pl.id}}</div>
+          <div class="location-power">{{pl.power | number:'1.2-2'}} MW</div>
         </li>
       </ul>
     </div>
