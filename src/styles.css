@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,800i');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,800|Viga');
 
 html {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 12pt;
   letter-spacing: .5px;
 }
