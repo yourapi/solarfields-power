@@ -1,0 +1,105 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: solarfields-power-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($host = 'www._HOSTNAME_' ) {
+        rewrite ^ https://_HOSTNAME_$request_uri permanent;
+      }
+spec:
+  tls:
+    - secretName: solarfields-power-cert
+      hosts:
+        - "_HOSTNAME_"
+        - "www._HOSTNAME_"
+  rules:
+  - host: "_HOSTNAME_"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: solarfields-power-service
+          servicePort: 80
+  - host: "www._HOSTNAME_"
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: solarfields-power-service
+            servicePort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: solarfields-power-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: solarfields-power
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: solarfields-power
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: solarfields-power
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - image: _IMAGE_
+          imagePullPolicy: Always
+          name: solarfields-power
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "touch /tmp/healthy"]
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "rm /tmp/healthy && sleep 5"]
+          readinessProbe:
+            exec:
+              command: ["cat", "/tmp/healthy"]
+            periodSeconds: 1
+            successThreshold: 1
+            failureThreshold: 2
+            initialDelaySeconds: 2
+      imagePullSecrets:
+        - name: gitlab-registry
+---
+
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v1
+metadata:
+  name: solarfields-power
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: solarfields-power
+    apiVersion: extensions/v1beta1
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
