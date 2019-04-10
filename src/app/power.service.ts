@@ -22,7 +22,7 @@ export class PowerService {
   }
 
   private updatePower = () => {
-    this.api.get('https://api.staging-okapifordevelopers.nl/energy/readout/monitor').subscribe((value) => {
+    this.api.get('https://api.staging-okapifordevelopers.nl/energy/readout/monitor', true).subscribe((value) => {
       if (value instanceof Array) {
         const per_location = [] as Power[];
         for (const i of value) {
