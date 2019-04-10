@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {ApiService} from '../api.service';
 import {BehaviorSubject} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
-import {isArray} from 'util';
-import {forEach} from '@angular/router/src/utils/collection';
 
 export interface Power {
   id: string;
@@ -15,8 +13,8 @@ export interface Power {
 
 @Injectable({providedIn: 'root'})
 export class PowerService {
-  location_power = new BehaviorSubject<Power[]>(null);
-  total_power = new BehaviorSubject<Power>(null);
+  location_power = new BehaviorSubject<Power[]>([]);
+  total_power = new BehaviorSubject<Power>({id: '-', power: 0, timestamp: new Date()});
 
   constructor(private api: ApiService) {
     this.updatePower();
@@ -25,12 +23,11 @@ export class PowerService {
 
   private updatePower = () => {
     this.api.get('https://api.staging-okapifordevelopers.nl/energy/readout/monitor').subscribe((value) => {
-      if (isArray(value)) {
-        const per_location: Power[] = [];
+      if (value instanceof Array) {
+        const per_location = [] as Power[];
         for (const i of value) {
           i.power = i.power / 1000000;
           if (i.id !== 'total') {
-            // @ts-ignore
             per_location.push(i);
           } else {
             this.total_power.next(i);
@@ -42,5 +39,5 @@ export class PowerService {
         this.total_power.error('Unable to fetch total power: ' + value);
       }
     });
-  }
+  };
 }
