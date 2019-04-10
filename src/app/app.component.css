@@ -87,3 +87,18 @@
     height: 30px;
   }
 }
+
+
+
+.header {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+}
+.header img {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 600px;
+  max-width: 80%;
+}
