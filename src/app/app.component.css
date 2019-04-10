@@ -1,0 +1,56 @@
+.power-page {
+  display: flex;
+
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+
+  background-image: url("/assets/background-lg.jpg"), url("/assets/background-sm.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.power-container {
+  position: relative;
+  margin: auto;
+
+  width: 38%;
+  min-width: 450px;
+
+  height: 50%;
+  min-height: 600px;
+
+  text-align: center;
+
+  /*background-color: rgba(240, 248, 255, 0.46);*/
+  /*border-radius: 5px;*/
+  /*box-shadow: rgba(240, 248, 255, 0.46) 0 0 40px 20px;*/
+}
+
+.total-power {
+  font-size: 100px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.total-power span {
+  font-size: 60%;
+}
+
+.power-per-location ul {
+  list-style-type: none;
+  font-weight: 800;
+  padding: 0;
+}
+.power-per-location li {
+  width: 300px;
+  height: 30px;
+  margin: 0 auto;
+  color: white;
+}
+.location-name {
+  float: left;
+}
+.location-power {
+  float: right;
+}

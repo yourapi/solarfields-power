@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,800i');
+
+html {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 12pt;
+  letter-spacing: .5px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
