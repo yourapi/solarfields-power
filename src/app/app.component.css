@@ -12,13 +12,14 @@
 
 .power-container {
   position: relative;
+  padding-top: 100px;
   margin: auto;
 
   width: 90%;
   /*min-width: 450px;*/
 
   height: 50%;
-  min-height: 600px;
+  min-height: fit-content;
 
   text-align: center;
 
@@ -77,6 +78,9 @@
 
 
 @media screen and (max-width: 700px) {
+  .power-container {
+    margin-top: 10px;
+  }
   .total-power {
     font-size: 75px;
   }
