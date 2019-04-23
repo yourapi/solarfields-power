@@ -12,8 +12,8 @@
 
 .power-container {
   position: relative;
-  padding-top: 100px;
-  margin: auto;
+  padding-top: 80px;
+  margin: 5vw auto 0 auto ;
 
   width: 90%;
   /*min-width: 450px;*/
@@ -48,20 +48,32 @@
   font-size: 20px;
 }
 .power-per-location li {
-  width: 500px;
+  /*width: fit-content;*/
   height: 30px;
   margin: 0 auto;
   color: white;
 }
+.power-per-location li:first-child {
+  /*height: 60px;*/
+  border-bottom: white 2px solid;
+  margin-bottom: 10px;
+}
 .power-per-location li>div{
   white-space: nowrap;
 }
+.power-per-location li>div>div {
+  display: inline-block;
+  width: 125px;
+}
 .location-name {
   float: left;
+  width: 300px;
+  overflow: hidden;
+  text-align: left;
 }
-.location-power {
-  float: right;
-}
+/*.location-data-container {*/
+/*  float: right;*/
+/*}*/
 
 @media screen and (min-width: 1200px) {
   .total-power {
@@ -71,8 +83,11 @@
     font-size: 30px;
   }
   .power-per-location li {
-    width: 750px;
+    max-width: 2000px;
     height: 50px;
+  }
+  .power-per-location li>div>div {
+    width: 200px;
   }
 }
 

@@ -3,12 +3,27 @@
     <img src="/assets/logo-solarfields-white.svg" alt="Logo Solarfields">
   </div>
   <div class="power-container">
-    <div class="total-power">{{total_power.power | number:'3.2-2' | slice:0:3 | number}}<span>.{{total_power.power | number:'3.2-2' | slice:4:6 | number:'2.0-0' }}</span> MW</div>
+    <div class="total-power">{{total_power.power.value | number:'3.2-2' | slice:0:3 | number}}<span>.{{total_power.power.value | number:'3.2-2' | slice:4:6 | number:'2.0-0' }}</span> {{total_power.power.unit}}</div>
     <div class="power-per-location">
       <ul>
+        <li>
+          <div class="location-name">Locatie</div>
+          <div class="location-data-container">
+            <div class="location-power">Nu</div>
+            <div class="location-day-production">Vandaag</div>
+            <div class="location-total-production">Totaal</div>
+            <div class="location-co2-reduction">CO2</div>
+          </div>
+        </li>
         <li *ngFor="let pl of per_location | async">
           <div class="location-name">{{pl.name || pl.id}}</div>
-          <div class="location-power">{{pl.power | number:'1.2-2'}} MW</div>
+          <div class="location-data-container">
+            <div class="location-power">{{pl.power.value | number:'1.2-2'}} {{pl.power.unit}}</div>
+            <div class="location-day-production">{{pl.energy_day.value || 0 | number:'1.2-2'}} {{pl.energy_day.unit}}</div>
+            <div class="location-total-production">{{pl.energy_total.value || 0 | number:'1.2-2'}} {{pl.energy_total.unit}}</div>
+            <div class="location-total-co2reduction">{{pl.co2_total.value || 0 | number:'1.2-2'}} {{pl.co2_total.unit}}</div>
+          </div>
+
         </li>
       </ul>
     </div>
