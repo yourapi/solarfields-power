@@ -21,6 +21,7 @@ before_script:
 
 build:
   stage: build
+  retry: 1
   script:
   - docker build --file ./deployment/Dockerfile --pull -t $RELEASE_IMAGE .
   - docker push $RELEASE_IMAGE
