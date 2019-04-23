@@ -15,8 +15,7 @@ spec:
       hosts:
         - "_HOSTNAME_"
         - "www._HOSTNAME_"
-        - "productiondata.solarfields.nl"
-        - "www.productiondata.solarfields.nl"
+        - "production.solarfields.nl"
   rules:
     - host: "_HOSTNAME_"
       http:
@@ -32,14 +31,7 @@ spec:
             backend:
               serviceName: solarfields-power-service
               servicePort: 80
-    - host: "productiondata.solarfields.nl"
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: solarfields-power-service
-              servicePort: 80
-    - host: "www.productiondata.solarfields.nl"
+    - host: "production.solarfields.nl"
       http:
         paths:
           - path: /
