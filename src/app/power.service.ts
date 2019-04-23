@@ -37,7 +37,7 @@ class EnergyValue {
 
   constructor(private energy: number) {
     if (!energy) {
-      this.unit = 'Wh';
+      this.unit = 'kWh';
       this.value = 0;
       return;
     }
@@ -45,15 +45,12 @@ class EnergyValue {
     let _factor;
     if (energy < 1000) {
       _factor = 1;
-      this.unit = 'Wh';
+      this.unit = 'kWh';
     } else if (energy < 1000000) {
       _factor = 1000;
-      this.unit = 'kWh';
+      this.unit = 'MWh';
     } else if (energy < 1000000000) {
       _factor = 1000000;
-      this.unit = 'MWh';
-    } else if (energy < 1000000000000) {
-      _factor = 1000000000;
       this.unit = 'GWh';
     }
     this.value = energy / _factor;
