@@ -143,6 +143,11 @@
     width: 90px;
     text-align: left;
   }
+
+  .power-per-location li:last-child .location-data-container>div {
+    border-top: none;
+    padding-top: 0;
+  }
   .power-per-location li:first-child .location-data-container {
     display: none;
   }
