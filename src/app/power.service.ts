@@ -25,6 +25,9 @@ class PowerValue {
     } else if (power < 1000000000) {
       _factor = 1000000;
       this.unit = 'MW';
+    } else {
+      _factor = 1000000000;
+      this.unit = 'GW';
     }
     this.value = power / _factor;
   }
@@ -52,6 +55,9 @@ class EnergyValue {
     } else if (energy < 1000000000) {
       _factor = 1000000;
       this.unit = 'GWh';
+    } else {
+      _factor = 1000000000;
+      this.unit = 'TWh';
     }
     this.value = energy / _factor;
   }
@@ -62,22 +68,25 @@ class Co2Value {
   public unit: string;
   public value: number;
 
-  constructor(private co2: number) {
-    if (!co2) {
+  constructor(private co2_value: number) {
+    if (!co2_value) {
       this.unit = 'kg';
       this.value = 0;
       return;
     }
 
     let _factor;
-    if (co2 < 1000) {
+    if (co2_value < 1000) {
       _factor = 1;
       this.unit = 'kg';
-    } else if (co2 < 1000000) {
+    } else if (co2_value < 1000000) {
       _factor = 1000;
       this.unit = 'Ton';
+    } else {
+      _factor = 1000000;
+      this.unit = 'kTon';
     }
-    this.value = co2 / _factor;
+    this.value = co2_value / _factor;
   }
 }
 
@@ -112,12 +121,14 @@ export class PowerService {
           i.energy_day = new EnergyValue(i.energy_day);
           i.energy_total = new EnergyValue(i.energy_total);
           i.co2_total = new Co2Value(i.co2_total);
+          i.co2_day = new Co2Value(i.co2_day);
           if (i.id !== 'total') {
             per_location.push(i);
           } else {
             this.total_power.next(i);
           }
         }
+        console.log(per_location);
         per_location.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         this.location_power.next(per_location);
       } else if (value instanceof HttpErrorResponse) {
