@@ -18,10 +18,10 @@
         <li *ngFor="let pl of per_location | async">
           <div class="location-name">{{pl.name || pl.id}}</div>
           <div class="location-data-container">
-            <div class="location-power">{{pl.power.value | number:'1.2-2'}} {{pl.power.unit}}</div>
-            <div class="location-day-production">{{pl.energy_day.value || 0 | number:'1.2-2'}} {{pl.energy_day.unit}}</div>
-            <div class="location-total-production">{{pl.energy_total.value || 0 | number:'1.2-2'}} {{pl.energy_total.unit}}</div>
-            <div class="location-total-co2reduction">{{pl.co2_total.value || 0 | number:'1.2-2'}} {{pl.co2_total.unit}}</div>
+            <div class="location-power"><div class="mobile-title">Nu</div> {{pl.power.value | number:'1.2-2'}} {{pl.power.unit}}</div>
+            <div class="location-day-production"><div class="mobile-title">Vandaag</div> {{pl.energy_day.value || 0 | number:'1.2-2'}} {{pl.energy_day.unit}}</div>
+            <div class="location-total-production"><div class="mobile-title">Totaal</div> {{pl.energy_total.value || 0 | number:'1.2-2'}} {{pl.energy_total.unit}}</div>
+            <div class="location-total-co2reduction"><div class="mobile-title">CO2</div> {{pl.co2_total.value || 0 | number:'1.2-2'}} {{pl.co2_total.unit}}</div>
           </div>
 
         </li>
