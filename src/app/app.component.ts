@@ -8,12 +8,12 @@ import {PowerService, Power} from './power.service';
 })
 export class AppComponent {
   title = 'app';
-  public total_power: Power;
+  public totals: Power;
   public per_location = this.power.location_power;
 
   constructor(private power: PowerService) {
-    power.total_power.subscribe((value) => {
-      this.total_power = value;
+    power.totals.subscribe((value) => {
+      this.totals = value;
     });
   }
 

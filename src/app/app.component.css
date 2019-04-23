@@ -69,6 +69,16 @@
   border-bottom: white 2px solid;
   margin-bottom: 10px;
 }
+.power-per-location li:last-child {
+  margin-top: 5px;
+}
+.power-per-location li:last-child>div {
+  margin-top: 5px;
+}
+.power-per-location li:last-child .location-data-container>div {
+  border-top: white 2px solid;
+  padding-top: 5px;
+}
 .power-per-location li>div{
   white-space: nowrap;
 }

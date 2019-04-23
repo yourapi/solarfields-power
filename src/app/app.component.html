@@ -3,7 +3,7 @@
     <img src="/assets/logo-solarfields-white.svg" alt="Logo Solarfields">
   </div>
   <div class="power-container">
-    <div class="total-power">{{total_power.power.value | number:'3.2-2' | slice:0:3 | number}}<span>.{{total_power.power.value | number:'3.2-2' | slice:4:6 | number:'2.0-0' }}</span> {{total_power.power.unit}}</div>
+    <div class="total-power">{{totals.power.value | number:'3.2-2' | slice:0:3 | number}}<span>.{{totals.power.value | number:'3.2-2' | slice:4:6 | number:'2.0-0' }}</span> {{totals.power.unit}}</div>
     <div class="power-per-location">
       <ul>
         <li>
@@ -22,6 +22,17 @@
             <div class="location-day-production"><div class="mobile-title">Vandaag</div> {{pl.energy_day.value || 0 | number:'1.2-2'}} {{pl.energy_day.unit}}</div>
             <div class="location-total-production"><div class="mobile-title">Totaal</div> {{pl.energy_total.value || 0 | number:'1.2-2'}} {{pl.energy_total.unit}}</div>
             <div class="location-total-co2reduction"><div class="mobile-title">CO2</div> {{pl.co2_total.value || 0 | number:'1.2-2'}} {{pl.co2_total.unit}}</div>
+          </div>
+
+        </li>
+        <li>
+
+          <div class="location-name">Totaal</div>
+          <div class="location-data-container">
+            <div class="location-power"><div class="mobile-title">Nu</div> {{totals.power.value | number:'1.2-2'}} {{totals.power.unit}}</div>
+            <div class="location-day-production"><div class="mobile-title">Vandaag</div> {{totals.energy_day.value || 0 | number:'1.2-2'}} {{totals.energy_day.unit}}</div>
+            <div class="location-total-production"><div class="mobile-title">Totaal</div> {{totals.energy_total.value || 0 | number:'1.2-2'}} {{totals.energy_total.unit}}</div>
+            <div class="location-total-co2reduction"><div class="mobile-title">CO2</div> {{totals.co2_total.value || 0 | number:'1.2-2'}} {{totals.co2_total.unit}}</div>
           </div>
 
         </li>

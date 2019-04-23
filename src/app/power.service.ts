@@ -105,7 +105,10 @@ export interface Power {
 @Injectable({providedIn: 'root'})
 export class PowerService {
   location_power = new BehaviorSubject<Power[]>([]);
-  total_power = new BehaviorSubject<Power>({id: '-', power: new PowerValue(0), timestamp: new Date()});
+  totals = new BehaviorSubject<Power>({
+    id: '-', power: new PowerValue(0), energy_day: new EnergyValue(0),
+    energy_total: new EnergyValue(0), co2_total: new Co2Value(0), timestamp: new Date()
+  });
 
   constructor(private api: ApiService) {
     this.updatePower();
@@ -125,7 +128,7 @@ export class PowerService {
           if (i.id !== 'total') {
             per_location.push(i);
           } else {
-            this.total_power.next(i);
+            this.totals.next(i);
           }
         }
         console.log(per_location);
@@ -133,7 +136,7 @@ export class PowerService {
         this.location_power.next(per_location);
       } else if (value instanceof HttpErrorResponse) {
         this.location_power.error('Unable to fetch location power: ' + value);
-        this.total_power.error('Unable to fetch total power: ' + value);
+        this.totals.error('Unable to fetch total power: ' + value);
       }
     });
   };
