@@ -33,17 +33,6 @@
   font-weight: 800;
   color: #fff;
   text-shadow: rgba(0, 0, 255, 0.4) 5px 4px 10px;
-
-  animation: glow 1.5s ease-in-out infinite alternate
-}
-
-@-webkit-keyframes glow {
-  from {
-    text-shadow: rgba(0, 0, 255, 0.4) 5px 4px 10px;
-  }
-  to {
-    text-shadow: rgba(0, 0, 255, 0.8) 5px 4px 50px;;
-  }
 }
 
 .total-power span {
