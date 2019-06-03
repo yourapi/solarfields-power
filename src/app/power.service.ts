@@ -104,6 +104,7 @@ export interface Power {
 
 @Injectable({providedIn: 'root'})
 export class PowerService {
+  call_pending = 0;
   location_power = new BehaviorSubject<Power[]>([]);
   totals = new BehaviorSubject<Power>({
     id: '-', power: new PowerValue(0), energy_day: new EnergyValue(0),
@@ -116,28 +117,31 @@ export class PowerService {
   }
 
   private updatePower = () => {
-    this.api.get('https://api.staging-okapifordevelopers.nl/energy/readout/monitor', true).subscribe((value) => {
-      if (value instanceof Array) {
-        const per_location = [] as Power[];
-        for (const i of value) {
-          i.power = new PowerValue(i.power);
-          i.energy_day = new EnergyValue(i.energy_day);
-          i.energy_total = new EnergyValue(i.energy_total);
-          i.co2_total = new Co2Value(i.co2_total);
-          i.co2_day = new Co2Value(i.co2_day);
-          if (i.id !== 'total') {
-            per_location.push(i);
-          } else {
-            this.totals.next(i);
+    if ((this.call_pending === 0) || ((new Date().getTime() - 60 * 1000) > this.call_pending)) {
+      this.call_pending = new Date().getTime();
+      this.api.get('https://api.staging-okapifordevelopers.nl/energy/readout/monitor', true).subscribe((value) => {
+        if (value instanceof Array) {
+          const per_location = [] as Power[];
+          for (const i of value) {
+            i.power = new PowerValue(i.power);
+            i.energy_day = new EnergyValue(i.energy_day);
+            i.energy_total = new EnergyValue(i.energy_total);
+            i.co2_total = new Co2Value(i.co2_total);
+            i.co2_day = new Co2Value(i.co2_day);
+            if (i.id !== 'total') {
+              per_location.push(i);
+            } else {
+              this.totals.next(i);
+            }
           }
+          per_location.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+          this.location_power.next(per_location);
+          this.call_pending = 0;
+        } else if (value instanceof HttpErrorResponse) {
+          this.location_power.error('Unable to fetch location power: ' + value);
+          this.totals.error('Unable to fetch total power: ' + value);
         }
-        console.log(per_location);
-        per_location.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-        this.location_power.next(per_location);
-      } else if (value instanceof HttpErrorResponse) {
-        this.location_power.error('Unable to fetch location power: ' + value);
-        this.totals.error('Unable to fetch total power: ' + value);
-      }
-    });
-  };
+      });
+    }
+  }
 }
