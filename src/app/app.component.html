@@ -23,7 +23,9 @@
             <div class="location-total-production"><div class="mobile-title">Totaal</div> {{pl.energy_total.value || 0 | number:'1.2-2'}} {{pl.energy_total.unit}}</div>
             <div class="location-total-co2reduction"><div class="mobile-title">CO2</div> {{pl.co2_total.value || 0 | number:'1.2-2'}} {{pl.co2_total.unit}}</div>
           </div>
-
+        </li>
+        <li *ngIf="loading | async">
+          <div class="location-data-container">Ophalen zonneparken...</div>
         </li>
         <li>
 

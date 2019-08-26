@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'app';
   public totals: Power;
   public per_location = this.power.location_power;
+  public loading = this.power.awaiting_data;
 
   constructor(private power: PowerService) {
     power.totals.subscribe((value) => {

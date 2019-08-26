@@ -105,6 +105,7 @@ export interface Power {
 @Injectable({providedIn: 'root'})
 export class PowerService {
   call_pending = 0;
+  awaiting_data = new  BehaviorSubject<boolean>(true);
   location_power = new BehaviorSubject<Power[]>([]);
   totals = new BehaviorSubject<Power>({
     id: '-', power: new PowerValue(0), energy_day: new EnergyValue(0),
@@ -137,6 +138,7 @@ export class PowerService {
           per_location.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
           this.location_power.next(per_location);
           this.call_pending = 0;
+          this.awaiting_data.next(false);
         } else if (value instanceof HttpErrorResponse) {
           this.location_power.error('Unable to fetch location power: ' + value);
           this.totals.error('Unable to fetch total power: ' + value);
