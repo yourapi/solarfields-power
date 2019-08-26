@@ -42,11 +42,11 @@ deploy-production:
   - kubectl config use-context default
   - kubectl create ns $NAMESPACE || true
   - 'printf "apiVersion: v1\nkind: Secret\n$(kubectl create secret docker-registry gitlab-registry --docker-server=$CI_REGISTRY --docker-username=$CI_DEPLOY_USER --docker-password=$CI_DEPLOY_PASSWORD --docker-email=$GITLAB_USER_EMAIL -o yaml --dry-run)" | kubectl apply -f -'
-  - sed 's~_IMAGE_~'"$RELEASE_IMAGE"'~g; s~_HOSTNAME_~'"solarfields-power.okapifordevelopers.com"'~g' deployment/kubernetes.template.yaml > kubernetes.yaml;
+  - sed 's~_IMAGE_~'"$RELEASE_IMAGE"'~g; s~_HOSTNAME_~'"production.solarfields.nl"'~g' deployment/kubernetes.template.yaml > kubernetes.yaml;
   - kubectl apply -f kubernetes.yaml
   environment:
     name: Production
-    url: https://solarfields-power.okapifordevelopers.com
+    url: https://production.solarfields.nl
   only:
   - tags
   - master

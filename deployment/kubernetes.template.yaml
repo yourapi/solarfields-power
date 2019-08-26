@@ -14,8 +14,7 @@ spec:
     - secretName: solarfields-power-cert
       hosts:
         - "_HOSTNAME_"
-        - "www._HOSTNAME_"
-        - "production.solarfields.nl"
+#        - "www._HOSTNAME_"
   rules:
     - host: "_HOSTNAME_"
       http:
@@ -24,20 +23,13 @@ spec:
             backend:
               serviceName: solarfields-power-service
               servicePort: 80
-    - host: "www._HOSTNAME_"
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: solarfields-power-service
-              servicePort: 80
-    - host: "production.solarfields.nl"
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: solarfields-power-service
-              servicePort: 80
+#    - host: "www._HOSTNAME_"
+#      http:
+#        paths:
+#          - path: /
+#            backend:
+#              serviceName: solarfields-power-service
+#              servicePort: 80
 
 ---
 
