@@ -120,7 +120,7 @@ export class PowerService {
   private updatePower = () => {
     if ((this.call_pending === 0) || ((new Date().getTime() - 60 * 1000) > this.call_pending)) {
       this.call_pending = new Date().getTime();
-      this.api.get('https://api.staging-okapifordevelopers.nl/energy/readout/monitor', true).subscribe((value) => {
+      this.api.get('https://api.okapi.online/energy/readout/monitor', true).subscribe((value) => {
         if (value instanceof Array) {
           const per_location = [] as Power[];
           for (const i of value) {
